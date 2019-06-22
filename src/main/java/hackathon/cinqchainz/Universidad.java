@@ -6,28 +6,48 @@ import java.util.List;
 public class Universidad {
 
     public List<Convenio> convenios;
-    public List<Institucion> instituciones;
     public List<Carrera> carreras;
     public String nombre;
     private int convenioID;
 
     public Universidad(String nombre, int tipoUniversidad) {
         this.nombre = nombre;
+        this.carreras = this.LlenarCarreras();
         this.convenios = LlenarConvenios();
         this.convenioID = this.convenios.size() + 1;
     }
 
+    public List<Carrera> LlenarCarreras() {
+        carreras = new ArrayList<>();
+        Carrera carr1 = new Carrera("Ciencias de la Computación");
+
+        carr1.agregarCurso("CC101", "Matemática Básica");
+        carr1.agregarCurso("CC104", "Programación 1");
+        carr1.agregarCurso("CC105", "Programación 2");
+        carr1.agregarCurso("CC102", "Comprensión y Producción del Lenguaje");
+        carr1.agregarCurso("CC109", "Ética y Ciudadanía");
+        return carreras;
+    }
+
     private List<Convenio> LlenarConvenios() {
-        List<Convenio> ListConvenios = new ArrayList<Convenio>();
-        ListConvenios.add(new Convenio(1, "Universidad Privada del Norte", "Perú", "Vigente"));
-        ListConvenios.add(new Convenio(2, "Universidad Nacional de Colombia", "Colombia", "Proceso"));
-        ListConvenios.add(new Convenio(3, "Universidad Peruana de Ciencias Aplicadas", "España", "Rechazado"));
-        ListConvenios.add(new Convenio(4, "University California of Irvin", "Estados Unidos", "Vigente"));
+        List<Institucion> instituciones = new ArrayList<>();
+        instituciones.add(new Institucion("Sunedu"));
+        instituciones.add(new Institucion("Sunedu2"));
+        instituciones.add(new Institucion("Sunedu3"));
+
+        List<Tuple<Curso, Curso>> diccionario = new ArrayList<>();
+
+        List<Convenio> ListConvenios = new ArrayList<>();
+        ListConvenios.add(new Convenio(1, "Universidad Privada del Norte", "Universidad Privada del Norte", "Perú", "Vigente", instituciones, diccionario));
+        ListConvenios.add(new Convenio(2, "Universidad Nacional de Colombia", "Universidad Nacional de Colombia", "Colombia", "Proceso", instituciones, diccionario));
+        ListConvenios.add(new Convenio(3,"Universidad Peruana de Ciencias Aplicadas", "Universidad Peruana de Ciencias Aplicadas", "España", "Rechazado", instituciones, diccionario));
+        ListConvenios.add(new Convenio(4, "University California of Irvin", "University California of Irvin", "Estados Unidos", "Vigente", instituciones, diccionario));
+
         return ListConvenios;
     }
 
-    public Convenio CrearConvenios(String universidad, String pais, String estado) {
-        Convenio convenio = new Convenio(this.convenioID, universidad, pais, estado);
+    public Convenio CrearConvenios(String universidad, String pais, String estado, List<Institucion> instituciones, List<Tuple<Curso, Curso>> diccionario) {
+        Convenio convenio = new Convenio(this.convenioID, this.nombre, universidad, pais, estado, instituciones, diccionario);
         this.convenios.add(convenio);
         this.convenioID++;
         return convenio;

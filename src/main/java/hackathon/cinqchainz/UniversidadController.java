@@ -2,6 +2,7 @@ package hackathon.cinqchainz;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,20 +21,23 @@ public class UniversidadController {
         return universidad.convenios;
     }
 
-    @PostMapping("/convenios")
+    // todo
+    /*@PostMapping("/convenios")
     public Convenio crearConvenio(@RequestBody Map<String, String> body) {
         String uni = body.get("universidad");
         String pais = body.get("pais");
         String estado = body.get("estado");
-        return universidad.CrearConvenios(uni, pais, estado);
-    }
+        List<Institucion> instituciones = new ArrayList<Institucion>;
+        instituciones.add(new Institucion("Ministerio de Educación"));
+        return universidad.CrearConvenios(uni, pais, estado, instituciones);
+    }*/
 
     @GetMapping("/convenio/{strID}")
     public Convenio obtenerConvenio(@PathVariable String strID, @RequestBody Map<String, String> body) {
         int id = Integer.parseInt(strID);
         for(Convenio con : universidad.convenios) {
             if(con.id == id) {
-                return con;
+
             }
         }
         return null;
@@ -44,7 +48,7 @@ public class UniversidadController {
         int id = Integer.parseInt(strID);
         for(Convenio con : universidad.convenios) {
             if(con.id == id) {
-                con.universidad = body.get("universidad");
+                con.universidadB = body.get("universidad");
                 con.pais = body.get("pais");
                 con.estado = body.get("estado");
                 return con;
