@@ -2,8 +2,8 @@ package hackathon.cinqchainz;
 
 public class Curso {
 
-    String codigo;
-    String nombre;
+    public String codigo;
+    public String nombre;
 
     public Curso(String codigo, String nombre) {
         this.codigo = codigo;

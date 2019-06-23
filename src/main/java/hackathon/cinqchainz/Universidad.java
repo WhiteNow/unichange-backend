@@ -13,19 +13,20 @@ public class Universidad {
     public Universidad(String nombre, int tipoUniversidad) {
         this.nombre = nombre;
         this.carreras = this.LlenarCarreras();
-        this.convenios = LlenarConvenios();
+        this.convenios = this.LlenarConvenios();
         this.convenioID = this.convenios.size() + 1;
     }
 
     public List<Carrera> LlenarCarreras() {
         carreras = new ArrayList<>();
-        Carrera carr1 = new Carrera("Ciencias de la Computación");
 
-        carr1.agregarCurso("CC101", "Matemática Básica");
-        carr1.agregarCurso("CC104", "Programación 1");
-        carr1.agregarCurso("CC105", "Programación 2");
-        carr1.agregarCurso("CC102", "Comprensión y Producción del Lenguaje");
-        carr1.agregarCurso("CC109", "Ética y Ciudadanía");
+        Carrera carr = new Carrera("Ciencias de la Computación");
+        carr.cursos.add(new Curso("CC101", "Matemática Básica"));
+        carr.cursos.add(new Curso("CC104", "Programación 1"));
+        carr.cursos.add(new Curso("CC105", "Programación 2"));
+        carr.cursos.add(new Curso("CC102", "Comprensión y Producción del Lenguaje"));
+        carr.cursos.add(new Curso("CC109", "Ética y Ciudadanía"));
+        carreras.add(carr);
         return carreras;
     }
 
@@ -35,61 +36,47 @@ public class Universidad {
         instituciones.add(new Institucion("Sunedu2"));
         instituciones.add(new Institucion("Sunedu3"));
 
-        List<Tuple<Curso, Curso>> diccionario = new ArrayList<>();
-
         List<Convenio> ListConvenios = new ArrayList<>();
-        ListConvenios.add(new Convenio(1, "Universidad Privada del Norte", "Universidad Privada del Norte", "Perú", "Vigente", instituciones, diccionario));
-        ListConvenios.add(new Convenio(2, "Universidad Nacional de Colombia", "Universidad Nacional de Colombia", "Colombia", "Proceso", instituciones, diccionario));
-        ListConvenios.add(new Convenio(3,"Universidad Peruana de Ciencias Aplicadas", "Universidad Peruana de Ciencias Aplicadas", "España", "Rechazado", instituciones, diccionario));
-        ListConvenios.add(new Convenio(4, "University California of Irvin", "University California of Irvin", "Estados Unidos", "Vigente", instituciones, diccionario));
+
+        List<Carrera> ListCarreras = new ArrayList<>();
+        Carrera carrera = new Carrera("Ingeniería Informática");
+        carrera.agregarCurso("II101", "Matemática 1", this.carreras.get(0).cursos.get(0));
+        carrera.agregarCurso("II102", "Introducción a la Programación", this.carreras.get(0).cursos.get(0));
+        carrera.agregarCurso("II104", "Programación Orientada a Objetos", this.carreras.get(0).cursos.get(0));
+        carrera.agregarCurso("II109", "Redacción y Lenguaje", this.carreras.get(0).cursos.get(0));
+        carrera.agregarCurso("II107", "Historia Universal", null);
+        ListCarreras.add(carrera);
+        ListConvenios.add(new Convenio(1, this.nombre, "Universidad Privada del Norte", "Perú", "Vigente", instituciones, ListCarreras));
+
+
+        ListCarreras = new ArrayList<>();
+        carrera = new Carrera("Música");
+        carrera.agregarCurso("MU101", "Matemática Básica", this.carreras.get(0).cursos.get(0));
+        carrera.agregarCurso("MU102", "Desarrollo del Lenguaje", this.carreras.get(0).cursos.get(3));
+        carrera.agregarCurso("MU104", "Ética ciudadana", this.carreras.get(0).cursos.get(4));
+        carrera.agregarCurso("MU105", "Introducción a la Música", null);
+        ListCarreras.add(carrera);
+        ListConvenios.add(new Convenio(2, this.nombre, "Universidad Nacional de Colombia", "Perú", "Vigente", instituciones, ListCarreras));
+
+        ListConvenios.add(new Convenio(3,this.nombre, "Universidad Peruana de Ciencias Aplicadas", "España", "Proceso", instituciones, null));
+
+        ListConvenios.add(new Convenio(4, this.nombre, "University California of Irvin", "Estados Unidos", "Rechazado", instituciones, null));
 
         return ListConvenios;
     }
 
-    public Convenio CrearConvenios(String universidad, String pais, String estado, List<Institucion> instituciones, List<Tuple<Curso, Curso>> diccionario) {
+    /*public Convenio CrearConvenios(String universidad, String pais, String estado, List<Institucion> instituciones, List<Tuple<Curso, Curso>> diccionario) {
         Convenio convenio = new Convenio(this.convenioID, this.nombre, universidad, pais, estado, instituciones, diccionario);
         this.convenios.add(convenio);
         this.convenioID++;
         return convenio;
+    }*/
+
+    public List<Convenio> getConvenios() {
+        return convenios;
     }
 
+    public void setConvenios(List<Convenio> convenios) {
+        this.convenios = convenios;
+    }
 }
-
-/*
-
-Matemática Básica
-CC101
-Programación 1
-CC104
-Programación 2
-CC105
-Comprensión y Producción del Lenguaje
-CC102
-Ética y Ciudadanía
-CC109
-
----------
-
-Matemática 1
-II101
-Introducción a la Programación
-II102
-Programación Orientada a Objetos
-II104
-Redacción y Lenguaje
-II109
-Historia Universal
-II107
-
----------
-
-Matemática Básica
-MU101
-Desarrollo del Lenguaje
-MU102
-Ética ciudadana
-MU104
-Introducción a la Música
-MU105
-
- */

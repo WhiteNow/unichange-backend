@@ -10,10 +10,10 @@ import java.util.Map;
 public class UniversidadController {
     Universidad universidad;
 
-    @PostMapping("/convenios/initializer")
+    @PostMapping("/initializer")
     public Universidad crearUniversidad() {
-        universidad = new Universidad("UCV", 1);
-        return universidad;
+        universidad = new Universidad("Universidad Peruana de Ciencias Aplicadas", 1);
+        return null;
     }
 
     @GetMapping("/convenios")
@@ -60,7 +60,7 @@ public class UniversidadController {
     @DeleteMapping("/convenio/{strID}")
     public Convenio eliminarConvenio(@PathVariable String strID) {
         int id = Integer.parseInt(strID);
-        universidad.convenios.removeIf(t -> t.id == id);
+        //universidad.convenios.removeIf(t -> t.id == id);
         return null;
     }
 

@@ -1,10 +1,10 @@
 package hackathon.cinqchainz;
 
 public class Tuple<X, Y> {
-    public final X x;
-    public final Y y;
+    public final X first;
+    public final Y second;
     public Tuple(X x, Y y) {
-        this.x = x;
-        this.y = y;
+        this.first = x;
+        this.second = y;
     }
 }
