@@ -2,24 +2,27 @@ package hackathon.cinqchainz;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class UniversidadController {
     Universidad universidad;
+    List<Solicitud> solicitudes;
 
     @PostMapping("/initializer")
     public Universidad crearUniversidad() {
-        universidad = new Universidad("Universidad Peruana de Ciencias Aplicadas", 1);
+        this.universidad = new Universidad("Universidad Peruana de Ciencias Aplicadas", 1);
+
+        this.solicitudes = new ArrayList<>();
+        Date date = new GregorianCalendar(2020, Calendar.FEBRUARY, 11).getTime();
+        this.solicitudes.add(new Solicitud(1, "u201411972", this.universidad.convenios.get(0).universidadB, date) );
         return null;
     }
 
     @GetMapping("/convenios")
     public List<Convenio> listarConvenios() {
-        return universidad.convenios;
+        return this.universidad.convenios;
     }
 
     // todo
@@ -55,10 +58,38 @@ public class UniversidadController {
     }
 
     @DeleteMapping("/convenio/{strID}")
-    public Convenio eliminarConvenio(@PathVariable String strID) {
+    public String eliminarConvenio(@PathVariable String strID) {
         int id = Integer.parseInt(strID);
-        //universidad.convenios.removeIf(t -> t.id == id);
+        for(int i=0; i<universidad.convenios.size(); i++) {
+            if(universidad.convenios.get(i).id == id) {
+                universidad.convenios.remove(i);
+                return "Convenio eliminado satisfactoriamente";
+            }
+        }
         return null;
+    }
+
+    @GetMapping("/universidades")
+    public List<String> obtenerUniversidades() {
+        List<String> universidades = new ArrayList<>();
+        universidades.add("Universidad Peruana de Ciencias Aplicadas");
+        universidades.add("Universidad Privada del Norte");
+        universidades.add("Universidad Nacional de Colombia");
+        universidades.add("University of California, Irvine");
+        return universidades;
+    }
+
+    @GetMapping("/reguladores")
+    public List<String> obtenerReguladores() {
+        List<String> reguladores = new ArrayList<>();
+        reguladores.add("SUNEDU");
+        reguladores.add("Ministerio de Educación");
+        return reguladores;
+    }
+
+    @GetMapping("/solicitudes")
+    public List<Solicitud> listarSolicitudes() {
+        return this.solicitudes;
     }
 
 }

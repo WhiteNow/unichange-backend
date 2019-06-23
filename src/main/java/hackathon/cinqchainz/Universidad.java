@@ -60,7 +60,7 @@ public class Universidad {
 
         ListConvenios.add(new Convenio(3,this.nombre, "Universidad Peruana de Catalunya", "España", "Proceso", instituciones, null));
 
-        ListConvenios.add(new Convenio(4, this.nombre, "University California of Irvin", "Estados Unidos", "Rechazado", instituciones, null));
+        ListConvenios.add(new Convenio(4, this.nombre, "University of California, Irvine", "Estados Unidos", "Rechazado", instituciones, null));
 
         return ListConvenios;
     }
