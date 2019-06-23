@@ -18,7 +18,7 @@ public class Universidad {
     }
 
     public List<Carrera> LlenarCarreras() {
-        carreras = new ArrayList<>();
+        this.carreras = new ArrayList<>();
 
         Carrera carr = new Carrera("Ciencias de la Computación");
         carr.cursos.add(new Curso("CC101", "Matemática Básica"));
@@ -58,19 +58,19 @@ public class Universidad {
         ListCarreras.add(carrera);
         ListConvenios.add(new Convenio(2, this.nombre, "Universidad Nacional de Colombia", "Perú", "Vigente", instituciones, ListCarreras));
 
-        ListConvenios.add(new Convenio(3,this.nombre, "Universidad Peruana de Ciencias Aplicadas", "España", "Proceso", instituciones, null));
+        ListConvenios.add(new Convenio(3,this.nombre, "Universidad Peruana de Catalunya", "España", "Proceso", instituciones, null));
 
         ListConvenios.add(new Convenio(4, this.nombre, "University California of Irvin", "Estados Unidos", "Rechazado", instituciones, null));
 
         return ListConvenios;
     }
 
-    /*public Convenio CrearConvenios(String universidad, String pais, String estado, List<Institucion> instituciones, List<Tuple<Curso, Curso>> diccionario) {
-        Convenio convenio = new Convenio(this.convenioID, this.nombre, universidad, pais, estado, instituciones, diccionario);
-        this.convenios.add(convenio);
+    public Convenio CrearConvenios(String universidad, String pais, String estado, List<Institucion> instituciones, List<Carrera> carreras) {
+        Convenio convenio = new Convenio(this.convenioID, this.nombre, universidad, pais, estado, instituciones, carreras);
         this.convenioID++;
+        this.convenios.add(convenio);
         return convenio;
-    }*/
+    }
 
     public List<Convenio> getConvenios() {
         return convenios;

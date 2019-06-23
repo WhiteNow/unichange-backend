@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class UniversidadController {
     Universidad universidad;
 
@@ -22,22 +23,20 @@ public class UniversidadController {
     }
 
     // todo
-    /*@PostMapping("/convenios")
-    public Convenio crearConvenio(@RequestBody Map<String, String> body) {
-        String uni = body.get("universidad");
-        String pais = body.get("pais");
-        String estado = body.get("estado");
-        List<Institucion> instituciones = new ArrayList<Institucion>;
-        instituciones.add(new Institucion("Ministerio de Educación"));
-        return universidad.CrearConvenios(uni, pais, estado, instituciones);
-    }*/
+    @PostMapping("/convenios")
+    public Convenio crearConvenio(@RequestBody Convenio body) {
+        //String universidad = body.get("universidad");
+        //String pais = body.get("pais");
+        //String estado = body.get("estado");
+        return null;
+    }
 
     @GetMapping("/convenio/{strID}")
-    public Convenio obtenerConvenio(@PathVariable String strID, @RequestBody Map<String, String> body) {
+    public Convenio obtenerConvenio(@PathVariable String strID) {
         int id = Integer.parseInt(strID);
         for(Convenio con : universidad.convenios) {
             if(con.id == id) {
-
+                return con;
             }
         }
         return null;
@@ -48,8 +47,6 @@ public class UniversidadController {
         int id = Integer.parseInt(strID);
         for(Convenio con : universidad.convenios) {
             if(con.id == id) {
-                con.universidadB = body.get("universidad");
-                con.pais = body.get("pais");
                 con.estado = body.get("estado");
                 return con;
             }
