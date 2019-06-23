@@ -7,11 +7,13 @@ public class Solicitud {
     public String codigoAlumno;
     public String universidadDestino;
     public Date fecha;
+    public String estado;
 
-    public Solicitud(int id, String codigoAlumno, String universidadDestino, Date fecha) {
+    public Solicitud(int id, String codigoAlumno, String universidadDestino, Date fecha, String estado) {
         this.id = id;
         this.codigoAlumno = codigoAlumno;
         this.universidadDestino = universidadDestino;
         this.fecha = fecha;
+        this.estado = estado;
     }
 }

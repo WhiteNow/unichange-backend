@@ -3,6 +3,7 @@ package hackathon.cinqchainz;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.logging.SocketHandler;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -16,7 +17,15 @@ public class UniversidadController {
 
         this.solicitudes = new ArrayList<>();
         Date date = new GregorianCalendar(2020, Calendar.FEBRUARY, 11).getTime();
-        this.solicitudes.add(new Solicitud(1, "u201411972", this.universidad.convenios.get(0).universidadB, date) );
+        this.solicitudes.add(new Solicitud(1, "u201411972", this.universidad.convenios.get(0).universidadB, date, "Proceso") );
+        date = new GregorianCalendar(2020, Calendar.JULY, 2).getTime();
+        this.solicitudes.add(new Solicitud(2, "u201511972", this.universidad.convenios.get(1).universidadB, date, "Aceptado") );
+        date = new GregorianCalendar(2019, Calendar.JULY, 7).getTime();
+        this.solicitudes.add(new Solicitud(3, "u201511972", this.universidad.convenios.get(0).universidadB, date, "Rechazado") );
+        date = new GregorianCalendar(2019, Calendar.JULY, 22).getTime();
+        this.solicitudes.add(new Solicitud(4, "u201511972", this.universidad.convenios.get(1).universidadB, date, "Aceptado") );
+        date = new GregorianCalendar(2021, Calendar.NOVEMBER, 12).getTime();
+        this.solicitudes.add(new Solicitud(5, "u201511972", this.universidad.convenios.get(1).universidadB, date, "Aceptado") );
         return null;
     }
 
@@ -75,6 +84,7 @@ public class UniversidadController {
         universidades.add("Universidad Peruana de Ciencias Aplicadas");
         universidades.add("Universidad Privada del Norte");
         universidades.add("Universidad Nacional de Colombia");
+        universidades.add("Universidad Peruana de Catalunya");
         universidades.add("University of California, Irvine");
         return universidades;
     }
@@ -90,6 +100,29 @@ public class UniversidadController {
     @GetMapping("/solicitudes")
     public List<Solicitud> listarSolicitudes() {
         return this.solicitudes;
+    }
+
+    @GetMapping("/solicitudes/{strID}")
+    public Solicitud obtenerSolicitud(@PathVariable String strID) {
+        int id = Integer.parseInt(strID);
+        for(Solicitud sol : solicitudes) {
+            if(sol.id == id) {
+                return sol;
+            }
+        }
+        return null;
+    }
+
+    @PostMapping("/solicitudes/{strID}/aceptar")
+    public Solicitud aceptarSolicitud(@PathVariable String strID) {
+        int id = Integer.parseInt(strID);
+        for(Solicitud sol : solicitudes) {
+            if(sol.id == id) {
+                sol.estado = "Aceptado";
+                return sol;
+            }
+        }
+        return null;
     }
 
 }
